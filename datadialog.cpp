@@ -17,9 +17,8 @@ DataDialog::DataDialog(QWidget* parent,
 
     // 指令输入
     QLabel* instructionLabel = new QLabel("指令：");
-    instructionEdit = new QTextEdit(instruction);
-    instructionEdit->setAcceptRichText(false);  // 禁用富文本
-    instructionEdit->setLineWrapMode(QTextEdit::WidgetWidth);  // 自动换行
+    instructionEdit = new QPlainTextEdit(instruction);
+    instructionEdit->setLineWrapMode(QPlainTextEdit::WidgetWidth);  // 自动换行
     instructionEdit->setTabChangesFocus(true);  // Tab键切换焦点
     mainLayout->addWidget(instructionLabel);
     mainLayout->addWidget(instructionEdit);
@@ -32,9 +31,8 @@ DataDialog::DataDialog(QWidget* parent,
 
     // 输出内容
     QLabel* outputLabel = new QLabel("输出：");
-    outputEdit = new QTextEdit(output);
-    outputEdit->setAcceptRichText(false);  // 禁用富文本
-    outputEdit->setLineWrapMode(QTextEdit::WidgetWidth);  // 自动换行
+    outputEdit = new QPlainTextEdit(output);
+    outputEdit->setLineWrapMode(QPlainTextEdit::WidgetWidth);  // 自动换行
     outputEdit->setTabChangesFocus(true);  // Tab键切换焦点
     mainLayout->addWidget(outputLabel);
     mainLayout->addWidget(outputEdit);
@@ -53,8 +51,8 @@ DataDialog::DataDialog(QWidget* parent,
 
 AlpacaData DataDialog::getData() const {
     return AlpacaData {
-        instructionEdit->document()->toRawText().trimmed(),
+        instructionEdit->toPlainText().trimmed(),
         inputEdit->text().trimmed(),
-        outputEdit->document()->toRawText().trimmed()
+        outputEdit->toPlainText().trimmed()
     };
 }

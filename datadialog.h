@@ -2,7 +2,7 @@
 
 #include <QDialog>
 #include <QLineEdit>
-#include <QTextEdit>
+#include <QPlainTextEdit>
 #include <QDialogButtonBox>
 #include "alpacadata.h"
 
@@ -18,7 +18,7 @@ public:
     AlpacaData getData() const;
 
 private:
-    QTextEdit* instructionEdit;
+    QPlainTextEdit* instructionEdit;
     QLineEdit* inputEdit;
-    QTextEdit* outputEdit;
+    QPlainTextEdit* outputEdit;
 };

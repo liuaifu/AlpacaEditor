@@ -281,6 +281,7 @@ void MainWindow::loadFile(const QString& fileName) {
     currentPage = 1;
     updatePagination();
     updateTable();
+    currentFile = fileName;
     statusBar()->showMessage("文件已加载", 2000);
 }
 
