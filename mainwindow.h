@@ -5,6 +5,7 @@
 #include <QTableWidget>
 #include <QList>
 #include <QJsonArray>
+#include <QSettings>
 #include "alpacadata.h"
 
 
@@ -19,6 +20,7 @@ class MainWindow : public QMainWindow {
 
 public:
     MainWindow(QWidget* parent = nullptr);
+    virtual ~MainWindow();
 
 protected:
     void closeEvent(QCloseEvent* event) override;
@@ -71,6 +73,7 @@ private:
     QAction* aboutAct;
 
     QString currentFile;
+    QSettings* settings;
 };
 
 #endif // MAINWINDOW_H

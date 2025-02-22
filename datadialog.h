@@ -19,6 +19,6 @@ public:
 
 private:
     QPlainTextEdit* instructionEdit;
-    QLineEdit* inputEdit;
+    QPlainTextEdit* inputEdit;
     QPlainTextEdit* outputEdit;
 };

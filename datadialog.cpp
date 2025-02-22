@@ -12,6 +12,9 @@ DataDialog::DataDialog(QWidget* parent,
 {
     setWindowTitle("编辑数据条目");
     setMinimumSize(400, 300);
+    setWindowFlags(windowFlags() | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint);
+
+    QFont font("新宋体", 12);
 
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
 
@@ -20,12 +23,16 @@ DataDialog::DataDialog(QWidget* parent,
     instructionEdit = new QPlainTextEdit(instruction);
     instructionEdit->setLineWrapMode(QPlainTextEdit::WidgetWidth);  // 自动换行
     instructionEdit->setTabChangesFocus(true);  // Tab键切换焦点
+    instructionEdit->setFont(font);
     mainLayout->addWidget(instructionLabel);
     mainLayout->addWidget(instructionEdit);
 
     // 输入内容
     QLabel* inputLabel = new QLabel("输入：");
-    inputEdit = new QLineEdit(input);
+    inputEdit = new QPlainTextEdit(input);
+    inputEdit->setLineWrapMode(QPlainTextEdit::WidgetWidth);  // 自动换行
+    inputEdit->setTabChangesFocus(true);  // Tab键切换焦点
+    inputEdit->setFont(font);
     mainLayout->addWidget(inputLabel);
     mainLayout->addWidget(inputEdit);
 
@@ -34,6 +41,7 @@ DataDialog::DataDialog(QWidget* parent,
     outputEdit = new QPlainTextEdit(output);
     outputEdit->setLineWrapMode(QPlainTextEdit::WidgetWidth);  // 自动换行
     outputEdit->setTabChangesFocus(true);  // Tab键切换焦点
+    outputEdit->setFont(font);
     mainLayout->addWidget(outputLabel);
     mainLayout->addWidget(outputEdit);
 
@@ -52,7 +60,7 @@ DataDialog::DataDialog(QWidget* parent,
 AlpacaData DataDialog::getData() const {
     return AlpacaData {
         instructionEdit->toPlainText().trimmed(),
-        inputEdit->text().trimmed(),
+        inputEdit->toPlainText().trimmed(),
         outputEdit->toPlainText().trimmed()
     };
 }

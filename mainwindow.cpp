@@ -16,6 +16,7 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QStatusBar>
+#include <QFileInfo>
 
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
@@ -31,8 +32,16 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     createStatusBar();
     updatePagination();
 
-    setWindowTitle("Alpaca数据集编辑器 v0.1");
+    setWindowTitle("Alpaca数据集编辑器 v0.2");
     setMinimumSize(800, 600);
+
+    settings = new QSettings("MyCompany", "AlpacaEditor");
+}
+
+MainWindow::~MainWindow() {
+    settings->sync();
+    delete settings;
+    settings = nullptr;
 }
 
 void MainWindow::createActions() {
@@ -132,9 +141,13 @@ void MainWindow::newFile() {
 
 void MainWindow::open() {
     if (maybeSave()) {
-        QString fileName = QFileDialog::getOpenFileName(this, "打开文件", "", "Alpaca数据集 (*.json)");
-        if (!fileName.isEmpty())
+        QString last_path = settings->value("last_path", "").toString();
+        QString fileName = QFileDialog::getOpenFileName(this, "打开文件", last_path, "Alpaca数据集 (*.json)");
+        if (!fileName.isEmpty()) {
             loadFile(fileName);
+            QFileInfo fi(fileName);
+            settings->setValue("last_path", fi.path());
+        }
     }
 }
 
@@ -147,11 +160,16 @@ bool MainWindow::save() {
 }
 
 bool MainWindow::saveAs() {
-    QString fileName = QFileDialog::getSaveFileName(this, "另存为", "", "Alpaca数据集 (*.json)");
+    QString last_path = settings->value("last_path", "").toString();
+    QString fileName = QFileDialog::getSaveFileName(this, "另存为", last_path, "Alpaca数据集 (*.json)");
     if (fileName.isEmpty())
         return false;
 
-    return saveFile(fileName);
+    currentFile = fileName;
+    QFileInfo fi(fileName);
+    settings->setValue("last_path", fi.path());
+
+    return saveFile(currentFile);
 }
 
 void MainWindow::prevPage() {
