@@ -271,7 +271,7 @@ void MainWindow::about() {
     QMessageBox msgbox;
     msgbox.setWindowTitle("关于");
     msgbox.setIcon(QMessageBox::Information);
-    msgbox.setText("AlpacaEditor v0.1<br/><br/><a href='http://github.com/liuaifu/AlpacaEditor'>http://github.com/liuaifu/AlpacaEditor</a>");
+    msgbox.setText("AlpacaEditor v0.2<br/><br/><a href='http://github.com/liuaifu/AlpacaEditor'>http://github.com/liuaifu/AlpacaEditor</a>");
     msgbox.setTextFormat(Qt::RichText);
     msgbox.exec();
 }
